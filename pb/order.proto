@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package order;
+
+option go_package = "pb/order";
+
+service OrderService{
+    rpc CreateOrder(CreateOrderRequest)returns(CreateOrderResponse);
+    rpc GetOrders(GetOrdersRequest)returns(GetOrdersResponse);
+    rpc UpdateOrderStatus(UpdateOrderStatusRequest)returns(UpdateOrderStatusResponse);
+    rpc UpdatePaymentStatus(UpdatePaymentStatusRequest)returns(UpdatePaymentStatusResponse);
+    rpc CancelOrder(CalcelOrderRequest)returns(CancelOrderResponse);
+}
+
+message Order{
+    uint64 orderID = 1;
+    uint64 productID = 2;
+    uint64 userID = 3;
+    int32 quantity = 4;
+    string order_status = 5;
+    string payment_status = 6;
+}
+
+message CreateOrderRequest{
+    uint64 productID = 1;
+    uint64 userID = 2;
+    uint32 quantity = 3;
+}
+
+message CreateOrderResponse{
+    uint64 OrderID = 1;
+    string status = 2;
+}
+
+message GetOrdersRequest{
+    uint64 userID = 1;
+}
+
+message GetOrdersResponse{
+    repeated Order orders = 1;
+}
+
+message UpdateOrderStatusRequest{
+    uint64 orderID = 1;
+    string order_status = 2;
+}
+
+message UpdateOrderStatusResponse{
+    uint64 orderID = 1;
+    string status = 2;
+}
+
+message UpdatePaymentStatusRequest{
+    uint64 orderID = 1;
+    string payment_status = 2;
+}
+
+message UpdatePaymentStatusResponse{
+    uint64 orderID = 1;
+    string status = 2;
+}
+
+message CalcelOrderRequest{
+    uint64 orderID = 1;
+}
+
+message CancelOrderResponse{
+    uint64 orderID = 1;
+    string status = 2;
+}
